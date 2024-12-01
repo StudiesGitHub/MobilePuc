@@ -20,7 +20,6 @@ public class RegisterActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
 
-        // Botão Cadastrar
         findViewById(R.id.registerButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // Botão Voltar
+
         findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
             long result = dbHelper.addUser(username, password);
             if (result != -1) {
                 Toast.makeText(RegisterActivity.this, "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-                finish(); // Volta para a tela de login
+                finish();
             } else {
                 Toast.makeText(RegisterActivity.this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
             }

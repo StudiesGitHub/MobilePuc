@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor cursor = dbHelper.getUser(username, password);
         if (cursor != null && cursor.moveToFirst()) {
-            // Login bem-sucedido
             Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
             startActivity(intent);
             finish();

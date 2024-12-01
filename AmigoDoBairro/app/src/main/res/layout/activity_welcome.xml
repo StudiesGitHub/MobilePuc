@@ -7,13 +7,49 @@
     tools:context=".WelcomeActivity">
 
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/textoAviso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BEM VINDO!"
+        android:layout_marginTop="16dp"
+        android:text="@string/texto_aviso"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="imagem1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoAviso"
+        app:srcCompat="@drawable/buraco" />
+
+    <Button
+        android:id="@+id/anteriorButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Anterior"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/proximoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Próximo"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="@+id/anteriorButton"
+        app:layout_constraintStart_toStartOf="@+id/anteriorButton"
+        app:layout_constraintTop_toBottomOf="@+id/anteriorButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

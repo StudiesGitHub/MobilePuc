@@ -2,60 +2,62 @@ package com.pucpr.amigodobairro;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    ImageView imageView;
-    TextView textoAviso;
-    Button anteriorButton;
-    Button proximoButton;
+    RecyclerView recyclerView;
+    ImageAdapter imageAdapter;
+    LinearLayoutManager layoutManager;
 
-    int index = 0;
-    String[] images = new String[]{"buraco", "ruadanificada", "casa"};
+    Button anteriorButton, proximoButton;
+    int currentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        imageView = findViewById(R.id.imageView);
-        textoAviso = findViewById(R.id.textoAviso);
+        recyclerView = findViewById(R.id.recyclerView);
         anteriorButton = findViewById(R.id.anteriorButton);
         proximoButton = findViewById(R.id.proximoButton);
 
-        anteriorButton.setOnClickListener(v -> {
-            index--;
-            if (index < 0) {
-                index = images.length - 1;
-            }
-            atualizarImagem();
-        });
+        // Configuração da RecyclerView
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
-        proximoButton.setOnClickListener(v -> {
-            index++;
-            if (index >= images.length) {
-                index = 0;
-            }
-            atualizarImagem();
-        });
+        // Dados
+        List<ImageItem> items = new ArrayList<>();
+        items.add(new ImageItem("buraco", "Buraco na rua Ril Vicente!"));
+        items.add(new ImageItem("ruadanificada", "Rua General Paolis está temporariamente interditada!"));
+        items.add(new ImageItem("casa", "Casa invadida durante a noite na Rua das Margaridas!"));
 
-        atualizarImagem();
+        imageAdapter = new ImageAdapter(items, this);
+        recyclerView.setAdapter(imageAdapter);
+
+        // Botões de navegação
+        anteriorButton.setOnClickListener(v -> navigateToItem(false));
+        proximoButton.setOnClickListener(v -> navigateToItem(true));
     }
 
-    private void atualizarImagem() {
-        int imageResId = getResources().getIdentifier(images[index], "drawable", getPackageName());
-        imageView.setImageResource(imageResId);
-
-        if (images[index].equals("buraco")) {
-            textoAviso.setText("Buraco na rua Ril Vicente!");
-        } else if (images[index].equals("ruadanificada")) {
-            textoAviso.setText("Rua General Paolis está temporariamente interditada!");
-        } else if (images[index].equals("casa")) {
-            textoAviso.setText("Casa invadida durante a noite na Rua das Margaridas!");
+    private void navigateToItem(boolean next) {
+        if (next) {
+            currentIndex++;
+            if (currentIndex >= imageAdapter.getItemCount()) {
+                currentIndex = 0; // Volta ao início
+            }
+        } else {
+            currentIndex--;
+            if (currentIndex < 0) {
+                currentIndex = imageAdapter.getItemCount() - 1; // Vai ao final
+            }
         }
+        recyclerView.smoothScrollToPosition(currentIndex);
     }
 }
